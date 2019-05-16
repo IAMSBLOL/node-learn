@@ -4,6 +4,10 @@ const app = express();
 
 const router = require('./router/webRouter')
 
+const reqLog = require('./middlewares/req_time_logs')
+
+app.use(reqLog)
+
 app.use('/a', router)
 
 if (!module.parent) {
