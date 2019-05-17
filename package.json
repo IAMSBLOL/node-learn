@@ -16,7 +16,9 @@
     "jslint": "^0.12.1",
     "log4js": "^4.2.0",
     "logger": "0.0.1",
+    "pac-proxy-agent": "^3.0.0",
     "ramda": "^0.26.1",
+    "request": "^2.88.0",
     "superagent": "^5.0.5",
     "utility": "^1.16.1"
   },
