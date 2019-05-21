@@ -26,6 +26,24 @@ app.use((req, res, next) => {
     next()
 })
 
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'root123456',
+    database: 'world',
+    insecureAuth: true
+});
+
+connection.connect(function (err) {
+    if (err) {
+        console.error('error connecting: ' + err.stack);
+        return;
+    }
+
+    console.log('connected as id ' + connection.threadId);
+});
+
 app.use('/public', express.static(staticDir));
 
 app.use(reqLog)

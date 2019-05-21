@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "supervisor app"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "jslint": "^0.12.1",
     "log4js": "^4.2.0",
     "logger": "0.0.1",
+    "mysql": "github:mysqljs/mysql",
     "pac-proxy-agent": "^3.0.0",
     "ramda": "^0.26.1",
     "request": "^2.88.0",
