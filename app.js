@@ -26,23 +26,56 @@ app.use((req, res, next) => {
     next()
 })
 
-var mysql = require('mysql');
-var connection = mysql.createConnection({
+// var mysql = require('mysql');
+// var connection = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'root123456',
+//     database: 'world',
+//     insecureAuth: true
+// });
+
+// connection.connect(function (err) {
+//     if (err) {
+//         console.error('error connecting: ' + err.stack);
+//         return;
+//     }
+
+//     console.log('connected as id ' + connection.threadId);
+// });
+
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('world', 'root', 'root123456', {
     host: 'localhost',
-    user: 'root',
-    password: 'root123456',
-    database: 'world',
-    insecureAuth: true
+    dialect: 'mysql',
+
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+    },
+
+    // 仅限 SQLite
+    storage: 'path/to/database.sqlite',
+
+    // 请参考 Querying - 查询 操作符 章节
+    operatorsAliases: false
 });
 
-connection.connect(function (err) {
-    if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-
-    console.log('connected as id ' + connection.threadId);
+const User = sequelize.define('user', {
+    username: Sequelize.STRING,
+    birthday: Sequelize.DATE
 });
+
+sequelize.sync()
+    .then(() => User.create({
+        username: 'janedoe',
+        birthday: new Date(1980, 6, 20)
+    }))
+    .then(jane => {
+        console.log(jane.toJSON());
+    });
 
 app.use('/public', express.static(staticDir));
 
